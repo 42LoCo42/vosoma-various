@@ -1,0 +1,27 @@
+# Template file for 'zig-beta-bin'
+pkgname=zig-beta-bin
+version=0.8.0
+revision=2
+_beta="dev.2082+e9e91b4ed"
+wrksrc="zig-linux-x86_64-${version}-${_beta}"
+short_desc="Programming language designed for robustness, optimality, and clarity"
+maintainer="Leon Schumacher <leonsch@protonmail.com>"
+license="MIT"
+homepage="https://ziglang.org/"
+distfiles="https://ziglang.org/builds/zig-linux-x86_64-${version}-${_beta}.tar.xz"
+checksum=4a0f8d92f035a98538e1870203eecc70bc23313a8d0d4392964c453a76e9a74d
+nopie=yes
+nocross=yes
+conflicts="zig"
+provides="zig-$version"
+
+do_install() {
+    install -d -m755 "$DESTDIR/usr/lib"
+	cp -r "lib" "$DESTDIR/usr/lib/zig"
+
+	install -d -m755 "$DESTDIR/usr/share/doc/"
+	cp -r "docs" "$DESTDIR/usr/share/doc/zig"
+
+	install -D -m755 "zig" "$DESTDIR/usr/bin/zig"
+	vlicense "LICENSE"
+}

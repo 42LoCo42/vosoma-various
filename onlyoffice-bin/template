@@ -1,0 +1,55 @@
+# Template file for 'onlyoffice-bin'
+# vim: set ft=bash:
+pkgname=onlyoffice-bin
+version=6.2.0
+revision=2
+#archs="i686 x86_64"
+#wrksrc=
+#create_wrksrc=yes
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="binutils tar xz"
+# makedepends=""
+depends="alsa-lib curl desktop-file-utils gst-plugins-base1 gst-plugins-ugly1
+ gstreamer1 gtk+3 hicolor-icon-theme libpulseaudio libXScrnSaver nspr nss"
+short_desc="An office suite that combines text, spreadsheet and presentation editors"
+maintainer="Leon Schumacher <leonsch@protonmail.com>"
+license="AGPL-3.0-only"
+homepage="https://www.onlyoffice.com/"
+_basename="onlyoffice-desktopeditors_amd64.deb"
+distfiles="https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v${version}/${_basename}"
+checksum=9ca996c5a555ba5feb183221deef730a92aeed4d279ab9ed1457fdeb1432cdd8
+skip_extraction="${_basename}"
+nostrip="yes"
+
+do_extract() {
+	ar x "$XBPS_SRCDISTDIR/$pkgname-$version/$_basename"
+	tar xJf "data.tar.xz"
+}
+
+do_install() {
+	cp -r "opt" "usr" "$DESTDIR"
+
+	# icons
+	local _file
+	local _res
+	while read -r _file; do
+		_res="$(sed 's|\.png$||; s|^.*-||;' <<< "$_file")"
+		mkdir -p "$DESTDIR/usr/share/icons/hicolor/${_res}x${_res}/apps"
+		ln -sf \
+			"/opt/onlyoffice/desktopeditors/asc-de-${_res}.png" \
+			"$DESTDIR/usr/share/icons/hicolor/${_res}x${_res}/apps/onlyoffice-desktopeditors.png"
+	done <<< "$(
+		find "$DESTDIR/opt/onlyoffice/desktopeditors" \
+			-maxdepth 1 -type f -name 'asc-de-*.png'
+	)"
+
+	# licenses
+	mkdir -p "$DESTDIR/usr/share/licenses/${pkgname}"
+	ln -sf \
+		"/opt/onlyoffice/desktopeditors/3DPARTYLICENSE" \
+		"$DESTDIR/usr/share/licenses/${pkgname}/3DPARTYLICENSE"
+}

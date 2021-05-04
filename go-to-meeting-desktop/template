@@ -1,0 +1,53 @@
+# Template file for 'go-to-meeting-desktop'
+pkgname=go-to-meeting-desktop
+version=1.0.0
+revision=1
+archs="x86_64"
+wrksrc="gotomeeting-linux-desktop-${version}"
+hostmakedepends="electron12 gendesk yarn"
+makedepends=""
+depends=""
+short_desc="Go To Meeting desktop built with electron"
+maintainer="Leon Schumacher <leonsch@protonmail.com>"
+license="custom:Proprietary"
+homepage="https://www.gotomeeting.com/"
+distfiles="https://github.com/CrankySupertoon/gotomeeting-linux-desktop/archive/1.0.0.tar.gz
+https://raw.githubusercontent.com/CrankySupertoon/gotomeeting-nativefier/master/icon.png"
+checksum="81e3e33caf0e43e18d1804827624c597725022765c94a12236b0cc49796b7c44
+8feeb4d4ff69c095208f01b840b55df41e391527295367312f196cb5a0b45deb"
+skip_extraction="icon.png"
+
+do_build() {
+    gendesk \
+        --pkgname "GoToMeeting" \
+        --pkgdesc "${short_desc}" \
+        --icon "${pkgname}" \
+        --exec "/usr/bin/${pkgname}" \
+        -n -f
+    yarn
+    npx electron-builder --linux dir
+}
+
+do_install() {
+    # main files
+    install -d -m755 "$DESTDIR/opt/$pkgname"
+    cp -r "dist/linux-unpacked/"* "$DESTDIR/opt/$pkgname"
+
+    # desktop entry
+    install -D -m644 "GoToMeeting.desktop" "$DESTDIR/usr/share/applications/$pkgname.desktop"
+
+    # icon
+    install -d -m755 "$DESTDIR/usr/share/icons"
+    cp -r "$XBPS_SRCDISTDIR/$pkgname-$version/icon.png" "$DESTDIR/usr/share/icons/$pkgname.png"
+
+    # fix file permissions
+    find "$DESTDIR/"{opt,usr} -type d -exec chmod 755 {} \;
+    find "$DESTDIR/"{opt,usr} -type f -exec chmod 644 {} \;
+    chmod +x "$DESTDIR/opt/$pkgname/$pkgname"
+
+    # link the binary
+    install -d -m755 "$DESTDIR/usr/bin"
+    ln -srf "$DESTDIR/opt/$pkgname/$pkgname" "$DESTDIR/usr/bin/$pkgname"
+
+    ls "$DESTDIR/opt"
+}
