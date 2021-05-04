@@ -1,0 +1,20 @@
+# Template file for 'asp'
+pkgname=asp
+version=7
+revision=1
+hostmakedepends="asciidoc m4"
+depends="bash"
+short_desc="Arch Build Source Management Tool"
+maintainer="42LoCo42 <leonsch@protonmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/archlinux/asp"
+distfiles="https://github.com/archlinux/asp/archive/refs/tags/v7.tar.gz"
+checksum=aff3082dfc4b043b64ceaa153909bf4d2df6d1482151be8d4666d8c08d2e645c
+
+do_build() {
+	make
+}
+
+do_install() {
+	make PREFIX="$DESTDIR/usr" install
+}
