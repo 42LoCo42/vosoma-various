@@ -15,6 +15,10 @@ skip_extraction="MaterialIcons-Regular.ttf"
 
 font_dirs="/usr/share/fonts/TTF"
 
+pre_fetch() {
+	mkdir "$wrksrc"
+}
+
 do_install() {
 	cd "$XBPS_SRCDISTDIR/$pkgname-$version"
 	vinstall iconfont/MaterialIcons-Regular.ttf 644 usr/share/fonts/TTF
