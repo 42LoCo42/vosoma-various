@@ -1,0 +1,21 @@
+# Template file for 'font-material-design-icons-ttf'
+pkgname=font-material-design-icons-ttf
+version=4.0.0
+revision=1
+wrksrc="material-design-icons-${version}"
+hostmakedepends="unzip"
+depends="font-util xbps-triggers"
+short_desc="Material Design icons by Google"
+maintainer="Leon Schumacher <leonsch@protonmail.com>"
+license="Apache-2.0"
+homepage="https://github.com/google/material-design-icons"
+distfiles="https://github.com/google/material-design-icons/raw/$version/font/MaterialIcons-Regular.ttf"
+checksum=320d3688e085f8485936ee044e694fecb35f3eaf0e68a3efe98bdaf41eaed987
+skip_extraction="MaterialIcons-Regular.ttf"
+
+font_dirs="/usr/share/fonts/TTF"
+
+do_install() {
+	cd "$XBPS_SRCDISTDIR/$pkgname-$version"
+	vinstall iconfont/MaterialIcons-Regular.ttf 644 usr/share/fonts/TTF
+}
