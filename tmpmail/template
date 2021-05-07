@@ -1,8 +1,8 @@
 # Template file for 'tmpmail'
 pkgname=tmpmail
-_commit=150b320
-version="1.1.8.$_commit"
-revision=2
+version=1.1.8+git150b320
+revision=3
+_commit="${version#*+git}"
 hostmakedepends="git"
 depends="jq curl w3m"
 short_desc="A temporary email right from your terminal written in POSIX sh "
@@ -20,4 +20,5 @@ do_fetch() {
 do_install() {
 	vbin "$pkgname"
 	vman "$pkgname.1"
+	vlicense "LICENSE"
 }
