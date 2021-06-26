@@ -1,0 +1,21 @@
+# Template file for 'js-beautify'
+# vim: set ft=sh:
+pkgname=js-beautify
+version=1.10.2
+revision=1
+wrksrc="package"
+hostmakedepends="nodejs"
+depends="nodejs"
+short_desc="Beautify JavaScript/JSON (jsbeautifier.org)"
+maintainer="Leon Schumacher <leonsch@protonmail.com>"
+license="MIT"
+homepage="https://beautifier.io/"
+distfiles="http://registry.npmjs.org/$pkgname/-/$pkgname-$version.tgz"
+checksum=3762bc85656503f821127c457858f980b32863c4587ad81afa582fbb69e3f6f7
+
+do_install() {
+	local _npmdir="$DESTDIR/usr/lib/node_modules/"
+	mkdir -p $_npmdir
+	cd $_npmdir
+	npm install -g --prefix "$DESTDIR/usr" $pkgname@$version
+}

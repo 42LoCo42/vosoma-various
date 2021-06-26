@@ -1,15 +1,15 @@
 # Template file for 'zig-beta-bin'
 pkgname=zig-beta-bin
-version=0.8.0
-revision=2
-_beta="dev.2082+e9e91b4ed"
+version=0.9.0
+revision=1
+_beta="dev.120+a6d72fea0"
 wrksrc="zig-linux-x86_64-${version}-${_beta}"
 short_desc="Programming language designed for robustness, optimality, and clarity"
 maintainer="Leon Schumacher <leonsch@protonmail.com>"
 license="MIT"
 homepage="https://ziglang.org/"
 distfiles="https://ziglang.org/builds/zig-linux-x86_64-${version}-${_beta}.tar.xz"
-checksum=4a0f8d92f035a98538e1870203eecc70bc23313a8d0d4392964c453a76e9a74d
+checksum=68b54b355a39c0a769323d2f4e0d637026748fdd9ea595c620cebeca19682675
 nopie=yes
 nocross=yes
 conflicts="zig"
