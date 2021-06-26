@@ -1,0 +1,23 @@
+# Template file for 'tribler'
+# vim: set ft=sh:
+pkgname=tribler
+version=7.9.0
+revision=1
+hostmakedepends="binutils tar xz"
+depends="libsodium libX11 libxcb"
+short_desc="Privacy enhanced BitTorrent client with P2P content discovery "
+maintainer="Leon Schumacher <leonsch@protonmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://www.tribler.org"
+distfiles="https://github.com/Tribler/tribler/releases/download/v$version/tribler_${version}_all.deb"
+checksum=e0213f142cc9b406fc50705ebe527feec911aee7fb3fc57dd9d64ee25a45d66f
+
+do_extract() {
+	cd "$XBPS_SRCDISTDIR/$pkgname-$version"
+	ar x "tribler_${version}_all.deb" "data.tar.xz"
+}
+
+do_install() {
+	cd "$XBPS_SRCDISTDIR/$pkgname-$version"
+	tar xf "data.tar.xz" -C "$DESTDIR"
+}

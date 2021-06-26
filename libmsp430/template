@@ -1,0 +1,20 @@
+# Template file for 'libmsp430'
+# vim: set ft=sh:
+pkgname=libmsp430
+version=3.15.1.1
+_version_head="${version%.*}"
+_version_tail="${version##*.}"
+_version1="${_version_head//./_}"
+_version2="$(printf "%s_%03d" "${_version1}" "${_version_tail}")"
+revision=1
+wrksrc="/"
+short_desc="MSP Debug Stack library (e.g. for using mspdebug with tilib driver)"
+maintainer="Leon Schumacher <leonsch@protonmail.com>"
+license="custom"
+homepage="https://www.ti.com/"
+distfiles="https://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/MSPDS/${_version2}/export/MSP430_DLL_Developer_Package_Rev_${_version1}_${_version_tail}.zip"
+checksum=0b8a0672dfd02e37b60a74a7cf1469c98d6fbb9716923aeee27863b878d63ad4
+
+do_install() {
+	install -D "${pkgname}_64.so" "$DESTDIR/usr/lib/${pkgname}.so"
+}
