@@ -2,14 +2,14 @@
 pkgname=zig-beta-bin
 version=0.9.0
 revision=1
-_beta="dev.120+a6d72fea0"
+_beta="dev.463+3e8394776"
 wrksrc="zig-linux-x86_64-${version}-${_beta}"
 short_desc="Programming language designed for robustness, optimality, and clarity"
 maintainer="Leon Schumacher <leonsch@protonmail.com>"
 license="MIT"
 homepage="https://ziglang.org/"
 distfiles="https://ziglang.org/builds/zig-linux-x86_64-${version}-${_beta}.tar.xz"
-checksum=68b54b355a39c0a769323d2f4e0d637026748fdd9ea595c620cebeca19682675
+checksum=91ca54fd13b60f90be68cf21b171d9769bf4f7ce093c2afc9badfc6e31d7d736
 nopie=yes
 nocross=yes
 conflicts="zig"
