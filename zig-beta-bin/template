@@ -1,7 +1,8 @@
 # Template file for 'zig-beta-bin'
+# vim: set ft=sh:
 pkgname=zig-beta-bin
 version=0.9.0
-revision=2
+revision=3
 _beta="dev.463+3e8394776"
 wrksrc="zig-linux-x86_64-${version}-${_beta}"
 short_desc="Programming language designed for robustness, optimality, and clarity"
@@ -12,6 +13,8 @@ distfiles="https://ziglang.org/builds/zig-linux-x86_64-${version}-${_beta}.tar.x
 checksum=91ca54fd13b60f90be68cf21b171d9769bf4f7ce093c2afc9badfc6e31d7d736
 nopie=yes
 nocross=yes
+nostrip=yes
+noverifyrdeps=yes
 conflicts="zig"
 provides="zig-$version"
 
@@ -23,5 +26,6 @@ do_install() {
 	cp -r "docs" "$DESTDIR/usr/share/doc/zig"
 
 	install -D -m755 "zig" "$DESTDIR/usr/bin/zig"
+	strip -s "$DESTDIR/usr/bin/zig"
 	vlicense "LICENSE"
 }
