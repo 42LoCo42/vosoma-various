@@ -2,7 +2,7 @@
 # vim: set ft=sh:
 pkgname=zig-beta-bin
 version=0.9.0
-revision=3
+revision=4
 _beta="dev.463+3e8394776"
 wrksrc="zig-linux-x86_64-${version}-${_beta}"
 short_desc="Programming language designed for robustness, optimality, and clarity"
@@ -26,6 +26,6 @@ do_install() {
 	cp -r "docs" "$DESTDIR/usr/share/doc/zig"
 
 	install -D -m755 "zig" "$DESTDIR/usr/bin/zig"
-	strip -s "$DESTDIR/usr/bin/zig"
+	/usr/bin/strip -s "$DESTDIR/usr/bin/zig"
 	vlicense "LICENSE"
 }
