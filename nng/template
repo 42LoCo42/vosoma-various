@@ -1,0 +1,39 @@
+# Template file for 'nng'
+pkgname=nng
+version=1.5.2
+revision=1
+#wrksrc=
+hostmakedepends="cmake ninja asciidoc"
+makedepends="mbedtls-devel"
+depends="mbedtls"
+short_desc="Light-weight brokerless messaging"
+maintainer="Leon Schumacher <leonsch@protonmail.com>"
+license="MIT"
+homepage="https://nng.nanomsg.org/"
+distfiles="https://github.com/nanomsg/nng/archive/refs/tags/v${version}.tar.gz"
+checksum=f8b25ab86738864b1f2e3128e8badab581510fa8085ff5ca9bb980d317334c46
+
+do_configure() {
+	cmake -B build -S "${pkgname}-${version}" -G Ninja \
+		-DCMAKE_BUILD_TYPE='None' \
+		-DCMAKE_INSTALL_PREFIX='/usr' \
+		-DNNG_ENABLE_TLS=ON \
+		-DNNG_ENABLE_DOC=ON \
+		-DNNG_STATIC_LIB=OFF \
+		-DBUILD_SHARED_LIBS=ON
+}
+
+do_build() {
+	cd build
+	ninja
+}
+
+do_check() {
+	cd build
+	ninja test
+}
+
+do_install() {
+	cd build
+	DESTDIR="${DESTDIR}" ninja install
+}
