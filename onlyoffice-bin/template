@@ -1,7 +1,7 @@
 # Template file for 'onlyoffice-bin'
 # vim: set ft=bash:
 pkgname=onlyoffice-bin
-version=6.2.0
+version=6.3.1
 revision=2
 #archs="i686 x86_64"
 #wrksrc=
@@ -21,7 +21,7 @@ license="AGPL-3.0-only"
 homepage="https://www.onlyoffice.com/"
 _basename="onlyoffice-desktopeditors_amd64.deb"
 distfiles="https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v${version}/${_basename}"
-checksum=9ca996c5a555ba5feb183221deef730a92aeed4d279ab9ed1457fdeb1432cdd8
+checksum=5828c296303bc81ed99bf238ac36677e06944290d42b06d4bcbee19081bc7153
 skip_extraction="${_basename}"
 nostrip="yes"
 
